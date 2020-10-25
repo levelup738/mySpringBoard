@@ -36,7 +36,7 @@ spring으로 간단한 게시판은 만들어 보았습니다.
 
 ## DB Table
 
-![](/Diary/images/UML.png)
+![UML](https://user-images.githubusercontent.com/47135267/97111652-69b9a380-1723-11eb-8f45-fda8b6125977.png)
 
 
 
