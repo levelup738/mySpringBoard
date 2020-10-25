@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.myway.myboard.dao.CommentDAO">
+	<resultMap type="com.myway.myboard.model.CommentVO" id="commentRM">
+		<result property="seq" column="c_seq"/>
+		<result property="writer" column="c_writer"/>
+		<result property="regdate" column="c_regdate"/>
+		<result property="content" column="c_content"/>
+		<result property="boardseq" column="c_boardseq"/>
+	</resultMap>
+	<insert id="createComment" parameterType="com.myway.myboard.model.CommentVO">
+		INSERT INTO tb_comment (c_writer, c_content, c_boardseq) 
+		VALUES (#{writer}, #{content}, #{boardseq});
+	</insert>
+	
+	<select id="setCommentList" parameterType="hashmap" 
+		resultType="com.myway.myboard.model.CommentVO" resultMap="commentRM">
+		SELECT c_seq, c_writer, c_regdate, c_content, c_boardseq FROM tb_comment WHERE c_boardseq = #{b_seq}
+		ORDER BY c_seq LIMIT #{startCnt}, #{perPageCnt};
+	</select>
+	
+	<select id="cntTotal" parameterType="int"
+		resultType="int">
+		SELECT COUNT(c_seq) FROM tb_comment WHERE c_boardseq = #{b_seq};
+	</select>
+	
+	<select id="findCommentsBySeq" parameterType="int"
+		resultType="com.myway.myboard.model.CommentVO" resultMap="commentRM">
+		SELECT c_seq, c_writer, c_regdate, c_content, c_boardseq FROM tb_comment WHERE c_boardseq = #{boardseq};
+	</select>
+	
+	<delete id="deleteComment" parameterType="map">
+		DELETE FROM tb_comment WHERE c_seq = #{seq} AND c_writer = #{writer};
+	</delete>
+	
+	<update id="updateComment" parameterType="com.myway.myboard.model.CommentVO">
+		UPDATE tb_comment SET c_content = #{content}, c_regdate = NOW()
+		WHERE c_seq = #{seq};
+	</update>
+	
+	<!-- 검색 조건 SQL -->
+	<sql id="search">
+
+	</sql>
+</mapper>
+  

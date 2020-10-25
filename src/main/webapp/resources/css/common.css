@@ -1,0 +1,552 @@
+@charset "UTF-8";
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,button,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {margin: 0; padding: 0;}
+a{text-decoration: none;}
+a:link{color: #444;}
+a:visited{color: #444;}
+a:hover{color: #444;}
+a:focus{color: #444;}
+
+ul, ol, li{list-style: none;}
+fieldset, a{border: none;}
+.clear:after{content: ""; display: block; clear: both;}
+button:hover{cursor: pointer;}
+table, thead, tbody, tfoot{
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 0 none;
+}
+
+body{
+	font-family: "맑은 고딕", "sans-serif";
+}
+
+#container{
+	width: 100%;
+	margin: 0 auto;
+}
+
+header, footer{
+	width: 100%;
+	height: 80px;
+	line-height: 80px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 18px;
+	box-sizing: border-box;
+	letter-spacing: 3px;
+	clear:both;
+}
+header{
+	border-bottom: 2px solid #ddd;
+}
+header a{color:#000; text-decoration: none;}
+header a:link{color:#000; text-decoration: none;}
+header a:visited{color:#000; text-decoration: none;}
+header a:hover{color:#000; text-decoration: none;}
+footer{
+	border-top: 2px solid #ddd;
+	letter-spacing: 0px;
+}
+.btn_radius5{border-radius: 5px !important;}
+.border_none{border: none !important;}
+.underline:hover{text-decoration: underline;}
+.hdd, legend{
+	font-size: 0;
+    width: 0; height: 0;
+    line-height: 0;
+    text-indent: -9999px;
+    overflow: hidden;
+    visibility: hidden;
+    position: absolute;
+    top: 0; left: 0;
+}
+
+.main{
+	box-sizing: border-box;
+	padding: 20px 40px; 
+	margin: 0 auto;
+}
+input:hover{cursor: pointer;}
+/* 
+	에러메세지 관련
+ */
+.app_form .errorMsg{
+	display: inline-block;
+	width: 30%;
+	height: 45px;
+	text-align:left;
+	vertical-align: middle;
+	margin-left: 15px;
+}
+.app_form .error_text span{
+	vertical-align: middle;
+}
+.error_area{
+	text-align: left;
+}
+.app_form .error_login{
+	display:inline-block;
+	width: 50%;
+	height: 15px;
+	padding-bottom: 15px;
+	color: red;
+	text-align: left;
+}
+
+/* 
+	회원가입 양식
+ */
+.appForm{margin: 40px 0 auto;}
+
+.app_form .page_tit{
+	float:left;
+	font-size: 25px;
+	font-weight: bold;
+	text-align: left;
+	box-sizing: border-box;
+	padding-left: 10px;
+	padding-bottom: 15px;
+	width: 100%;
+	border-bottom: 2px solid #384d75;
+	margin: 20px 0;
+}
+.app_form li{
+	width: 100%;
+	float: left;
+}
+.app_form .tit_lbl{
+    float: left;
+    width: 15%;
+    line-height: 45px;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: left;
+    box-sizing: border-box;
+	padding-left: 10px;
+}
+.app_form .app_content{
+	display:inline-block;
+	width: 50%;
+	height: 45px;
+	margin-bottom: 15px;
+	border: 1px solid #ddd;
+}
+.app_form .app_content.id_area{
+	position: relative;
+}
+.app_form .btn_idcheck{
+	position: absolute;
+	right: 0;
+	top: 0;
+	height: 46px;
+	width: 80px;
+	font-weight: bold;
+	border: none;
+	color: #fff;
+	background-color: #384d75;
+}
+
+.app_form .app_content input{
+	box-sizing:border-box;
+	padding: 0 10px;
+	height: 45px;
+}
+.app_form .app_content *{vertical-align: middle;}
+
+.app_content.radio_area{
+	height: 45px;
+    text-align: left;
+	vertical-align: top;
+    border: none;
+    font-size: 20px;
+}
+.radio_area label span{
+	padding-right: 20px;
+}
+.app_form .btn_line{text-align: center;	padding-top: 20px;}
+.app_form .app_content input[type="text"],
+.app_form .app_content input[type="password"],
+.app_form .app_content input[type="tel"]{
+	width: 100%;
+	border: none;
+}
+.app_form .app_content.sel_birth{
+	border: none;
+	text-align: left;
+}
+.app_form .app_content.sel_birth .sel_date{
+	width: 20%;
+	height: 45px;
+	border: 1px solid #ddd;
+}
+.app_form .app_content.email_area{
+	text-align: left;
+	font-size: 20px;
+	border: none;
+}
+.app_form .app_content.email_area input[type="text"]{
+	width: 25%;
+	border: 1px solid #ddd;
+}
+.app_form .app_content.email_area .sel_email{
+	height: 45px;
+	width: 20%;
+	border: 1px solid #ddd;
+}
+.app_form .btn_login{
+	width: 100%;
+	height: 45px;
+	font-size: 18px;
+	font-weight: bold;
+	border: none;
+	color: #fff;
+	background-color: #384d75;
+	border-radius: 5px;
+}
+
+.app_form .btn_line button{
+	width: 180px;
+	height: 55px;
+	font-size: 18px;
+	font-weight: bold;
+	border: none;
+	color: #fff;
+	background-color: #384d75;
+	border-radius: 5px;
+}
+/* 
+	게시판 목록
+ */
+.minisrch_form{
+	width: 100%; 
+	text-align: center; 
+	margin: 20px auto;
+	position: relative;
+}
+.minisrch_form .sel_srch{
+	height: 35px;
+	border: 1px solid #ccc;
+}
+.minisrch_form .tbox{
+	padding: 0 30px 0 10px; 
+	width: 200px; height: 35px; 
+	line-height: 30px; 
+	border: none;
+	border: 1px solid #ccc; 
+	background: url(../images/ico_search.png) no-repeat 90% 50%; 
+	background-size: 20px;
+}
+.minisrch_form fieldset select:hover{cursor: pointer;}
+.minisrch_form fieldset input[type="text"]:hover{cursor: text;}
+.minisrch_form fieldset input[type="text"]:focus{
+	outline: none;
+	cursor: text;
+}
+
+.btn_srch{
+    display: inline-block; 
+    width: 70px; 
+    text-align: center; 
+    height: 37px; 
+    font-size: 14px;
+    line-height: 35px; 
+    vertical-align: middle; 
+    background: #384d75; 
+    color: #fff !important;
+}
+.postCnt{
+	float: left;
+}
+.bbsListTbl{
+    width: 100%;
+    border-top: 2px solid #5a697a;
+}
+
+.bbsListTbl th, .bbsListTbl td{
+	box-sizing: border-box;
+    padding: 10px;
+    height: 55px;
+}
+.bbsListTbl th {
+    border-bottom: 1px solid #cccc;
+    background-color: #f2f1fe;
+}
+.bbsListTbl td{
+    text-align: center;
+    line-height: 1.3;
+    border-bottom: 1px solid #ccc;
+}
+.bbsListTbl td.tit_notice{text-align: left;}
+.bbsListTbl td:nth-child(1){width: 10%;}
+.bbsListTbl td:nth-child(2){width: 50%;}
+.bbsListTbl td:nth-child(3){width: 15%;}
+.bbsListTbl td:nth-child(4){width: 10%;}
+.bbsListTbl td:nth-child(5){width: 15%;}
+
+.pagination{padding: 30px 0 0; text-align: center;}
+.pagination a{display: inline-block;}
+.pagination a.pbtn{
+    display: inline-block;
+    padding: 7px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 0;
+}
+.pagination a .pagenum{
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    vertical-align: middle;
+}
+.pagination a .currentpage{
+    border-radius: 3px;
+    background: #384d75;
+    color: #fff;
+}
+.pagination a:hover .pagenum{
+    border-radius: 3px;
+    background-color: #ddd;
+}
+.pagination .btn_line{
+	box-sizing: border-box;
+	padding-left: 5px;
+	float: left;
+}
+.pagination .btn_line a{
+	display: inline-block; 
+    width: 70px; 
+    text-align: center; 
+    height: 28px; 
+    font-size: 14px;
+    line-height: 28px; 
+    vertical-align: middle; 
+    background: #384d75; 
+    color: #fff !important;
+}
+.pagination .pageDot{
+	display: inline-block;
+	vertical-align: bottom;
+	width: 20px;
+	height: 25px;
+	margin: 0 10px;
+}
+.pagination .pageDot span{
+	font-weight: bold;
+	font-size: 18px;
+}
+
+/* 
+	게시판 글 보기
+ */
+.bbsview_list{
+ 	text-align: left;
+    border-top: 2px solid #384d75;
+}
+.bbsview_list li{
+    box-sizing: border-box;
+    padding: 0 15px;
+    font-size: 14px;
+    color: #666;
+}
+.bbsview_list li.bbs_title{
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 50px;
+    line-height: 50px;
+    font-weight: bold;
+    font-size: 16px;
+    border-bottom: 1px solid #ccc;
+}
+.bbsview_list li.bbs_username {
+	height: 40px;
+    line-height: 40px;
+    float: left;
+    width: 20%;
+}
+.bbsview_list li.bbs_date {
+    height: 40px;
+    line-height: 40px;
+    float: left;
+    width: 20%;
+}
+.bbsview_list li.bbs_hit{
+    height: 40px;
+    line-height: 40px;
+    float: left;
+    width: 20%;
+}
+.bbsview_list li.bbs_content{
+    clear: both;
+    min-height: 200px;
+    padding: 15px 15px;
+}
+.bbsview_list li.bbs_content .editor_content{line-height: 1.4;}
+.near_list{border-top: 1px solid #ccc;}
+.near_list li{
+	padding: 10px; 
+	border-bottom: 1px solid #ccc;
+	text-align: left;
+}
+.near_list li:after{content:""; display: block; clear: both;}
+.near_list li h4{
+    float: left; 
+    width: 100px; 
+    padding: 0 0 0 50px; 
+    background: url(../images/ico_nearNext.png) no-repeat 12px 50%; 
+    font-size: 15px; 
+}
+.near_list li h4.prev{
+    background: url(../images/ico_nearPrev.png) no-repeat 12px 50%; 
+    font-size: 15px; 
+}
+.btn_line.txt_right{
+	text-align: left;
+	box-sizing: border-box;
+	padding-bottom: 20px;
+	padding-left: 10px;
+}
+.btn_line .btn_bbs{
+	display:inline-block;
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	font-size: 18px;
+	font-weight: bold;
+	border: none;
+	color: #fff;
+	text-align: center;
+	background-color: #384d75;
+}
+/* 
+	댓글 
+ */
+.bbs_comment_list{
+	box-sizing: border-box;
+	padding: 20px;
+	width:100%;
+	background-color: #f0f0f0;
+	margin-bottom: 20px;
+}
+.commnet_area{
+	float: left;
+	width: 100%;
+	height: 150px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	padding: 15px;
+	margin: 10px 0;
+}
+.commnet_area textarea{
+	width: 100%;
+	height: 75%;
+	vertical-align: top;
+	resize: none;
+	border: none;
+	margin-bottom: 5px;
+}
+.btn_st1{
+	float: right;
+	width: 55px;
+	height: 30px;
+	margin-right: 10px;
+	font-weight: bold;
+	color: #fff;
+	border: none;	
+	background-color: #384d75;
+}
+
+.comment_box{
+	text-align: left;
+	box-sizing: border-box;
+	padding: 10px 0;
+	border-bottom: 1px solid #D8D8D8;
+}
+.comment_box .profile_info{
+	box-sizing: border-box;
+	padding-bottom: 10px;
+}
+.comment_box .profile_info span{
+	box-sizing: border-box;
+	padding-right: 15px;
+}
+.comment_box .comment_text{
+	box-sizing: border-box;
+	padding-left: 25px;
+}
+
+/* 
+	게시글 쓰기
+ */
+.app_form .write_container{
+	display: inline-block;
+	float: left;
+	width: 92.5%;
+}
+.write_container li{
+	width: 100%;
+	margin-bottom: 20px;
+}
+.post_name{
+	height: 30px;
+	border: 1px solid #ccc;
+}
+.post_name input{
+	width: 100%;
+	border: none;
+	height: 30px;
+	box-sizing:border-box;
+	padding: 0 10px;
+}
+.post_content textarea{
+	width: 100%;
+	height: 200px;
+	border: 1px solid #ccc;
+	resize: vertical;
+	box-sizing:border-box;
+	padding: 10px;
+	font-size: 14px;
+}
+.btn_write_line{
+	float:left;
+	width: 92.5%;
+	margin-bottom: 20px;
+}
+.btn_write_line button{
+	width: 80px;
+	height: 40px;
+	border: none;
+	background-color: #384d75;
+	color: #fff;
+	font-weight: bold;
+	font-size: 16px;
+	padding: 0;
+}
+.btn_write_line .btn_exit{
+	width: 80px;
+	height: 40px;
+	line-height: 40px;
+	float: right;
+	background-color: #384d75;
+	color: #fff;
+	font-weight: bold;
+	font-size: 16px;
+}
+

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.myway.myboard.dao.UserDAO">
+	<!-- 이렇게 맞춰 놓으면 밑에서 AS 안 써도 됨 -->
+	<resultMap type="com.myway.myboard.model.UserVO" id="userSelectRM">
+		<result property="seq" column="user_seq"/>
+		<result property="id" column="user_id"/>
+		<result property="name" column="user_name"/>
+		<result property="pw" column="user_pw"/>
+		<result property="gender" column="user_gender"/>
+		<result property="hp" column="user_hp"/>
+		<result property="birth" column="user_birth"/>
+		<result property="email" column="user_email"/>
+		<result property="authkey" column="user_authkey"/>
+		<result property="authstatus" column="user_authstatus"/>
+	</resultMap>
+	
+	<select id="findAllUser"
+		resultType="com.myway.myboard.model.UserVO"
+		resultMap="userSelectRM">
+		SELECT user_seq, user_id, user_name, user_pw, user_gender, user_birth, user_email, user_hp FROM tb_user;
+	</select>
+	
+	<insert id="createUser" parameterType="com.myway.myboard.model.UserVO">
+		INSERT INTO tb_user(user_id, user_name, user_pw, user_gender, user_birth, user_email, user_hp, user_authkey)
+		VALUES (#{id}, #{name}, #{pw}, #{gender}, #{birth}, #{email}, #{hp}, #{authkey});
+	</insert>
+	
+	<select id="selectLogin" parameterType="com.myway.myboard.model.UserVO"
+		resultType="com.myway.myboard.model.UserVO" resultMap="userSelectRM">
+		SELECT user_seq, user_id, user_name, user_pw, user_gender, user_birth, user_email, user_hp, user_authkey, user_authstatus FROM tb_user
+		WHERE user_id = #{id} AND user_pw = #{pw};
+	</select>
+	
+	<select id="idCheck" parameterType="string" resultType="int">
+		SELECT COUNT(user_seq) FROM tb_user WHERE user_id = #{id};
+	</select>
+	
+	<update id="updateUser" parameterType="com.myway.myboard.model.UserVO">
+		UPDATE tb_user SET user_name = #{name}, user_pw = #{pw}, user_gender = #{gender}, 
+		user_birth = #{birth}, user_email = #{email}, user_hp = #{hp}
+		WHERE user_seq = #{seq};
+	</update>
+	<update id="updateAuthStatus" parameterType="hashmap">
+		UPDATE tb_user SET user_authstatus = 1
+		WHERE (user_id = #{id}) AND (user_authkey = #{authkey})
+	</update>
+
+	<delete id="deleteUser" parameterType="int">
+		DELETE FROM tb_user WHERE user_seq = #{seq} AND user_id = #{id};
+	</delete>
+</mapper>
