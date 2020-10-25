@@ -28,11 +28,11 @@ spring으로 간단한 게시판은 만들어 보았습니다.
 
 ## 주요 구현 기능
 
-- 회원가입시 이메일 인증링크를 클릭해야만 회원가입 완료가 됨
-- 본인이 작성한 게시글/댓글만 수정, 삭제 가능
-- ajax로 ID중복확인
-- 동적SQL을 이용한 검색기능
-- logininterceptor기능 으로 로그인 안하고 게시글 보려고 하면 로그인 페이지로 보냄
+- [회원가입시 이메일 인증링크를 클릭해야만 회원가입 완료가 됨](/Diary/emailCheck.md)
+- [본인이 작성한 게시글/댓글만 수정, 삭제 가능](/Diary/modifyAndDelete.md)
+- [ajax로 ID중복확인](/Diary/idDoubleCheck.md)
+- [동적SQL을 이용한 검색기능](/Diary/dynamicSQL.md)
+- [logininterceptor기능 으로 로그인 안하고 게시글 보려고 하면 로그인 페이지로 보냄](/Diary/loginInterceptor.md)
 
 ## DB Table
 

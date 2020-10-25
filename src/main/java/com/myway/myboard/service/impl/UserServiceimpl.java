@@ -41,13 +41,10 @@ public class UserServiceimpl implements UserService{
 		// 임시키 값 상태를 설정 Authstatus default 0으로 해서 여기서 초기화안해줘도됨
 		String authKey = new TempKey().getKey(8, false);
 		userVO.setAuthkey(authKey);
-
 		// DB에 유저 생성
 		userDAO.createUser(userVO);
-
 		// mail 작성 관련기능
 		MailUtils sendMail = new MailUtils(mailSender);
-
 		sendMail.setSubject("[SON's MyBoard] 회원가입 이메일 인증");
 		sendMail.setText(new StringBuffer().append("<h1>[이메일 인증]</h1>")
 				.append("<p>아래 링크를 클릭하시면 이메일 인증이 완료됩니다.</p>")
