@@ -9,16 +9,13 @@ import java.util.Random;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.scripting.xmltags.ForEachSqlNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -61,5 +58,23 @@ public class CommentController {
 			logger.debug("댓글 수정 성공.");
 		}
 		return "redirect:/board/view.do?b_seq="+commentVO.getBoardseq();
+	}
+	@RequestMapping(value = "/comment/list.do", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	@ResponseBody
+	public String comment_list(
+			@RequestParam(value = "curPage", required = true, defaultValue = "1") Integer curPage,
+			@RequestParam(value = "b_seq", required = true) Integer b_seq) {
+		PageMaker pageMaker = new PageMaker(curPage, 5);
+		int totalPost = commentService.cntTotal(b_seq);
+		PageInfo pageInfo = pageMaker.pageSetting(totalPost);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<CommentVO> commentVOs = commentService.setCommentList(pageMaker, b_seq);
+		if(!commentVOs.isEmpty()) {
+			map.put("commentVOs", commentVOs);
+		}
+		map.put("pageInfo", pageInfo);
+
+		return "";
 	}
 }

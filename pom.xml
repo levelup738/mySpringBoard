@@ -158,9 +158,6 @@
 			<version>6.1.5.Final</version>
 		</dependency>
 
-
-
-
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>

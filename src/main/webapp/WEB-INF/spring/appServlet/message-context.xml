@@ -13,6 +13,7 @@
         <property name="cacheSeconds" value="5"/>
         <property name="basenames">
             <list>
+                <!-- message로 시작하는 모든 파일 -->
                 <value>/WEB-INF/properties/message</value>
             </list>
         </property>       

@@ -57,9 +57,13 @@
 		</if>;
 	</select>
 	
-	<select id="findPostBySeq" parameterType="int"
-		resultType="com.myway.myboard.model.BoardVO" resultMap="boardRM">
-		SELECT b_seq, b_title, b_writer, b_hit, b_regdate, b_content FROM tb_board WHERE b_seq IN(#{seq}-1, #{seq}, #{seq}+1);
+	<select id="findPostBySeq" parameterType="int" resultType="hashMap">
+		SELECT b_seq, b_title, b_writer, b_hit, b_regdate, b_content
+		,(SELECT b_title FROM tb_board WHERE b_seq &lt; #{seq} ORDER BY b_seq DESC LIMIT 1) AS PREV_TITLE
+		,(SELECT b_title FROM tb_board WHERE b_seq &gt; #{seq} ORDER BY b_seq LIMIT 1) AS NEXT_TITLE
+		,(SELECT b_seq FROM tb_board WHERE b_seq &lt; #{seq} ORDER BY b_seq DESC LIMIT 1) AS PREV_SEQ
+		,(SELECT b_seq FROM tb_board WHERE b_seq &gt; #{seq} ORDER BY b_seq LIMIT 1) AS NEXT_SEQ
+		FROM tb_board WHERE b_seq = #{seq};
 	</select>
 	
 	<delete id="deletePost" parameterType="map">

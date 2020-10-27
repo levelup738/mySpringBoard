@@ -1,5 +1,6 @@
 package com.myway.myboard.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,19 +45,20 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public boolean findPostBySeq(Integer seq, Map<String, Object> map) {
-		List<BoardVO> vos = boardDAO.findPostBySeq(seq);
-		if(vos.isEmpty()) {return false;}
-		for (BoardVO boardVO : vos) {
-			if (boardVO.getSeq().equals(seq)) {
-				map.put("boardVO", boardVO);
-			} else if (boardVO.getSeq().equals(seq - 1)) {
-				map.put("prevTitle", boardVO.getTitle());
-			} else if (boardVO.getSeq().equals(seq + 1)) {
-				map.put("nextTitle", boardVO.getTitle());
-			} else {
-				return false;
-			}
-		}
+		Map<String, Object> boardViewMap = boardDAO.findPostBySeq(seq);
+		BoardVO vo = new BoardVO();
+		vo.setSeq((Integer) boardViewMap.get("b_seq"));
+		vo.setTitle((String) boardViewMap.get("b_title"));
+		vo.setWriter((String) boardViewMap.get("b_writer"));
+		vo.setHit((Integer) boardViewMap.get("b_hit"));
+		vo.setRegdate((Date) boardViewMap.get("b_regdate"));
+		vo.setContent((String) boardViewMap.get("b_content"));
+
+		map.put("boardVO", vo);
+		map.put("prevTitle", boardViewMap.get("PREV_TITLE"));
+		map.put("nextTitle", boardViewMap.get("NEXT_TITLE"));
+		map.put("prevSeq", boardViewMap.get("PREV_SEQ"));
+		map.put("nextSeq", boardViewMap.get("NEXT_SEQ"));
 		return true;
 	}
 

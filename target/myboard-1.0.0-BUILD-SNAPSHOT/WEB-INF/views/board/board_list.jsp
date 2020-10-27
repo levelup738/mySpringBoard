@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<script src="${pageContext.request.contextPath }/resources/js/board_list.js?ver.${System.currentTimeMillis()}"></script>
+<script src="${pageContext.request.contextPath}/resources/js/board_list.js?ver.${System.currentTimeMillis()}"></script>
 <div class="bodytext_area box_inner">
 	<input type="hidden" id="savedSearchOpt" value="${searchOpt}">
 	<input type="hidden" id="savedKeyword" value="${keyword}">

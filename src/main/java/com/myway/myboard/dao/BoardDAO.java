@@ -10,7 +10,7 @@ public interface BoardDAO {
 	public Integer createPost(BoardVO barodVO);
 	public List<BoardVO> setBoardList(Map<String, Object> map);
 	public Integer cntTotal(Map<String, Object> map);
-	public List<BoardVO> findPostBySeq(Integer seq);
+	public Map<String, Object> findPostBySeq(Integer seq);
 	public Integer deletePost(Map<String, Object> map);
 	public Integer updatePost(BoardVO barodVO);
 	public Integer updateHit(Integer seq);

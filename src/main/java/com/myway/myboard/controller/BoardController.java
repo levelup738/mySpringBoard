@@ -39,8 +39,6 @@ public class BoardController {
 	
 	@Resource(name = "BoardServiceImpl")
 	public BoardService boardService;
-	@Resource(name = "CommentServiceImpl")
-	public CommentService commentService;
 	
 	@RequestMapping(value = "/board/list.do", method = RequestMethod.GET)
 	public ModelAndView board_listPage(Model model, 
@@ -73,26 +71,15 @@ public class BoardController {
 		return mav;
 	}
 	@RequestMapping(value = "/board/view.do", method = RequestMethod.GET)
-	public ModelAndView board_viewPage(Model model, 
+	public ModelAndView board_viewPage(Model model,
 			@RequestParam(value = "b_seq", required = true) Integer b_seq,
-			@RequestParam(value = "curPage", required = true, defaultValue = "1") Integer curPage,
 			@ModelAttribute("sessionUser") UserVO userVO) {
 		Map<String, Object> map = new HashMap<String, Object>();
+
 		map.put("commentVO", new CommentVO());
 		if(!boardService.findPostBySeq(b_seq, map)) {
 			logger.debug("viewpage 로딩 실패");
 		}
-		
-		PageMaker pageMaker = new PageMaker(curPage, 5);
-		int totalPost = commentService.cntTotal(b_seq);
-		PageInfo pageInfo = pageMaker.pageSetting(totalPost);
-
-		List<CommentVO> commentVOs = commentService.setCommentList(pageMaker, b_seq);
-		if(!commentVOs.isEmpty()) {
-			map.put("commentVOs", commentVOs);	
-		}
-		map.put("pageInfo", pageInfo);
-		
 		HashMap<String, Object> map_minmax = boardService.findMINMAXseq();
 		map.put("pageMin", map_minmax.get("min"));
 		map.put("pageMax", map_minmax.get("max"));

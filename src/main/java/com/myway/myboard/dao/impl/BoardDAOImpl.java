@@ -33,8 +33,8 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 
 	@Override
-	public List<BoardVO> findPostBySeq(Integer seq) {
-		return sqlSession.selectList(NAME_SPACE + ".findPostBySeq", seq);
+	public Map<String, Object> findPostBySeq(Integer seq) {
+		return sqlSession.selectOne(NAME_SPACE + ".findPostBySeq", seq);
 	}
 
 	@Override
