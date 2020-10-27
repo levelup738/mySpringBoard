@@ -4,7 +4,9 @@
 
 이 글번호를 불러오는 쿼리를 
 
+```
 SELECT b_seq, ... FROM tb_board WHERE IN (b_seq - 1, b_seq, b_seq + 1)
+```
 
 머 이런식으로 짯다. 근데 글을 삭제하고 수정하고 하다보면 이게 숫자가 안이어질수도 있는데 그걸 생각못했다.
 
@@ -27,10 +29,12 @@ FROM tb_board WHERE b_seq = #{seq};
 
 그냥 < 이렇게 쓰면 올바르지 않은 XML양식처럼되서 에러난다.
 
-> <![CDATA[ 
->
-> SELECT * FROM table WHERE salary > 100 
->
-> ]]>
+```
+<![CDATA[ 
+
+SELECT * FROM table WHERE salary > 100 
+
+]]>
+```
 
 이런식으로 CDATA로 묶어도 된다.
