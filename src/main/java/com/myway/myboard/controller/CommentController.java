@@ -1,18 +1,19 @@
 package com.myway.myboard.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import com.mysql.cj.xdevapi.JsonArray;
 import org.apache.ibatis.scripting.xmltags.ForEachSqlNode;
+import org.json.simple.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -61,20 +62,34 @@ public class CommentController {
 	}
 	@RequestMapping(value = "/comment/list.do", method = RequestMethod.GET, produces = "application/json; charset=utf8")
 	@ResponseBody
-	public String comment_list(
+	public ResponseEntity comment_list(
 			@RequestParam(value = "curPage", required = true, defaultValue = "1") Integer curPage,
 			@RequestParam(value = "b_seq", required = true) Integer b_seq) {
+		ArrayList<HashMap> hmlist = new ArrayList<HashMap>();
+
 		PageMaker pageMaker = new PageMaker(curPage, 5);
 		int totalPost = commentService.cntTotal(b_seq);
 		PageInfo pageInfo = pageMaker.pageSetting(totalPost);
 
-		Map<String, Object> map = new HashMap<String, Object>();
+		Map<String, Object> dataMap = new HashMap<String, Object>();
 		List<CommentVO> commentVOs = commentService.setCommentList(pageMaker, b_seq);
 		if(!commentVOs.isEmpty()) {
-			map.put("commentVOs", commentVOs);
+			for(int i = 0; i < commentVOs.size(); i++){
+				HashMap<String, Object> voMap = new HashMap<String, Object>();
+				voMap.put("c_seq", commentVOs.get(i).getSeq());
+				voMap.put("c_writer", commentVOs.get(i).getWriter());
+				voMap.put("c_content", commentVOs.get(i).getContent());
+				voMap.put("c_regdate", commentVOs.get(i).getRegdate());
+				hmlist.add(voMap);
+			}
 		}
-		map.put("pageInfo", pageInfo);
+		//dataMap.put("voList", commentVOs);
+		//dataMap.put("pageInfo", pageInfo);
 
-		return "";
+		// data를 json으로
+		JSONArray jsonArray = new JSONArray();
+		jsonArray.add(hmlist);
+
+		return new ResponseEntity(jsonArray.toString(), new HttpHeaders(), HttpStatus.CREATED);
 	}
 }

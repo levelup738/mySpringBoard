@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<script src="${pageContext.request.contextPath}/resources/js/comment.js?ver.${System.currentTimeMillis()}"></script>
     <ul class="bbs_comment_list">
         <c:if test="${commentVOs != null}">
             <c:forEach var="vo" items="${commentVOs}">
@@ -74,18 +75,5 @@
 
 
     <script>
-        window.onload = function () {
-            getCommentList();
-        }
 
-        const getCommentList = function () {
-            const xhr = new XMLHttpRequest();
-            xhr.open("GET", "${pageContext.request.contextPath}/comment/list.do?b_seq="+${boardVO.seq}, true);
-            xhr.send();
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-
-                }
-            }
-        }
     </script>
