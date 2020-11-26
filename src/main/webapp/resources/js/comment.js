@@ -111,7 +111,7 @@ const commentDelete = function(el){
                 if (data == "success") {
                     getCommentList();
                 } else {
-                    console.log('comment delete fail!');
+                    console.log('comment delete fail!!!');
                 }
             }
         )
