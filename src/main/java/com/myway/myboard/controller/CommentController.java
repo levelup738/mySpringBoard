@@ -1,13 +1,18 @@
 package com.myway.myboard.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.SchemaOutputResolver;
 
 import com.mysql.cj.xdevapi.JsonArray;
 import org.apache.ibatis.scripting.xmltags.ForEachSqlNode;
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,19 +43,24 @@ public class CommentController {
 	public CommentService commentService;
 	
 	@RequestMapping(value = "/comment/write.do", method = RequestMethod.POST)
+	@ResponseBody
 	public String comment_write(@ModelAttribute("commentVO") CommentVO commentVO) {
-		commentService.createComment(commentVO);
-		return "redirect:/board/view.do?b_seq="+commentVO.getBoardseq();
+		//System.out.println(commentVO.toString());
+		if(commentService.createComment(commentVO) > 0){
+			return "success";
+		}else{
+			return "fail";
+		}
 	}
 	@RequestMapping(value = "/comment/delete.do", method = RequestMethod.GET)
+	@ResponseBody
 	public String comment_delete(@RequestParam(value = "c_seq", required = true) Integer c_seq,
-			@RequestParam(value = "b_seq", required = true) Integer b_seq,
 			@RequestParam(value = "writer", required = true) String writer) {
-		Integer state = commentService.deleteComment(c_seq, writer);
-		if(state > 0) {
-			logger.debug("댓글 삭제 성공.");
+		if(commentService.deleteComment(c_seq, writer) > 0) {
+			return "success";
+		}else{
+			return "fail";
 		}
-		return "redirect:/board/view.do?b_seq="+b_seq;
 	}
 	@RequestMapping(value = "/comment/update.do", method = RequestMethod.POST)
 	public String comment_delete(@ModelAttribute("commentVO") CommentVO commentVO) {
@@ -62,10 +72,10 @@ public class CommentController {
 	}
 	@RequestMapping(value = "/comment/list.do", method = RequestMethod.GET, produces = "application/json; charset=utf8")
 	@ResponseBody
-	public ResponseEntity comment_list(
+	public ResponseEntity<Object> comment_list(
 			@RequestParam(value = "curPage", required = true, defaultValue = "1") Integer curPage,
 			@RequestParam(value = "b_seq", required = true) Integer b_seq) {
-		ArrayList<HashMap> hmlist = new ArrayList<HashMap>();
+		List<JSONObject> jsonList = new ArrayList<JSONObject>();
 
 		PageMaker pageMaker = new PageMaker(curPage, 5);
 		int totalPost = commentService.cntTotal(b_seq);
@@ -73,23 +83,29 @@ public class CommentController {
 
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		List<CommentVO> commentVOs = commentService.setCommentList(pageMaker, b_seq);
+
 		if(!commentVOs.isEmpty()) {
 			for(int i = 0; i < commentVOs.size(); i++){
-				HashMap<String, Object> voMap = new HashMap<String, Object>();
-				voMap.put("c_seq", commentVOs.get(i).getSeq());
-				voMap.put("c_writer", commentVOs.get(i).getWriter());
-				voMap.put("c_content", commentVOs.get(i).getContent());
-				voMap.put("c_regdate", commentVOs.get(i).getRegdate());
-				hmlist.add(voMap);
+				JSONObject entity = new JSONObject();
+				entity.put("c_seq", commentVOs.get(i).getSeq());
+				entity.put("c_writer", commentVOs.get(i).getWriter());
+				entity.put("c_content", commentVOs.get(i).getContent());
+				// 날짜 변환
+				DateTimeFormatter dateTimeFmt = DateTimeFormatter.ofPattern("yy.MM.dd hh:mm");
+				String strDate = commentVOs.get(i).getRegdate().format(dateTimeFmt);
+				//System.out.println(strDate);
+				entity.put("c_regdate", strDate);
+				jsonList.add(entity);
 			}
 		}
-		//dataMap.put("voList", commentVOs);
-		//dataMap.put("pageInfo", pageInfo);
+		JSONObject pageInfoJson = new JSONObject();
+		pageInfoJson.put("totalPage", pageInfo.getTotalPage());
+		pageInfoJson.put("totalPost", pageInfo.getTotalPost());
+		pageInfoJson.put("curPage", pageInfo.getCurPage());
+		pageInfoJson.put("startPage", pageInfo.getStartPage());
+		pageInfoJson.put("endPage", pageInfo.getEndPage());
+		jsonList.add(pageInfoJson);
 
-		// data를 json으로
-		JSONArray jsonArray = new JSONArray();
-		jsonArray.add(hmlist);
-
-		return new ResponseEntity(jsonArray.toString(), new HttpHeaders(), HttpStatus.CREATED);
+		return new ResponseEntity<Object>(jsonList, new HttpHeaders(), HttpStatus.CREATED);
 	}
 }

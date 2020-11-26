@@ -1,12 +1,13 @@
 package com.myway.myboard.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class CommentVO {
 	private Integer seq;
 	private String writer;
 	private String content;
-	private Date regdate;
+	private LocalDateTime regdate;
 	private Integer boardseq;
 	public Integer getSeq() {
 		return seq;
@@ -26,10 +27,10 @@ public class CommentVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getRegdate() {
+	public LocalDateTime getRegdate() {
 		return regdate;
 	}
-	public void setRegdate(Date regdate) {
+	public void setRegdate(LocalDateTime regdate) {
 		this.regdate = regdate;
 	}
 	public Integer getBoardseq() {
