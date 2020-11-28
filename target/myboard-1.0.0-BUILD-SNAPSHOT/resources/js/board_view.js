@@ -23,5 +23,7 @@ const goView = function(b_seq){
 }
 
 const goPage = function(b_seq, curPage){
-	location.href = "/myboard/board/view.do?b_seq="+b_seq+"&curPage="+curPage;
+	//console.log(b_seq+', '+curPage);
+	//location.href = "/myboard/board/view.do?b_seq="+b_seq+"&curPage="+curPage;
+	getCommentList(b_seq, curPage);
 }
