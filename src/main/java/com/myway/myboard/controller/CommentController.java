@@ -27,11 +27,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.myway.myboard.common.paging.PageInfo;
 import com.myway.myboard.common.paging.PageMaker;
-import com.myway.myboard.dao.BoardDAO;
-import com.myway.myboard.model.BoardVO;
 import com.myway.myboard.model.CommentVO;
-import com.myway.myboard.model.UserVO;
-import com.myway.myboard.service.BoardService;
 import com.myway.myboard.service.CommentService;
 
 @Controller
@@ -63,12 +59,14 @@ public class CommentController {
 		}
 	}
 	@RequestMapping(value = "/comment/update.do", method = RequestMethod.POST)
-	public String comment_delete(@ModelAttribute("commentVO") CommentVO commentVO) {
-		Integer state = commentService.updateComment(commentVO);
-		if(state > 0) {
-			logger.debug("댓글 수정 성공.");
+	@ResponseBody
+	public String comment_update(@ModelAttribute("commentVO") CommentVO commentVO) {
+		//System.out.println(commentVO.toString());
+		if(commentService.updateComment(commentVO) > 0) {
+			return "success";
+		}else{
+			return "fail";
 		}
-		return "redirect:/board/view.do?b_seq="+commentVO.getBoardseq();
 	}
 	@RequestMapping(value = "/comment/list.do", method = RequestMethod.GET, produces = "application/json; charset=utf8")
 	@ResponseBody

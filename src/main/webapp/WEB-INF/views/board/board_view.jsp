@@ -35,16 +35,3 @@
 		</c:if>
 	</ul>
 </div>
-<%--<form:form class="form_update" action="/myboard/comment/update.do"--%>
-<%--	method="post" modelAttribute="commentVO">--%>
-<%--	<div class="commnet_area">--%>
-<%--		<form:hidden path="seq"/>--%>
-<%--		<form:hidden path="writer" />--%>
-<%--		<form:hidden path="boardseq" value="${boardVO.seq}"/>--%>
-<%--		<form:textarea path="content" placeholder="댓글을 적을수 있는 창입니다." />--%>
-<%--		<p class="btn_line txt_right">--%>
-<%--			<button type="button" class="btn_st1 btn_radius5"--%>
-<%--				style="background-color: #ff7373;" onclick="commentUpdate()">등록</button>--%>
-<%--		</p>--%>
-<%--	</div>--%>
-<%--</form:form>--%>
