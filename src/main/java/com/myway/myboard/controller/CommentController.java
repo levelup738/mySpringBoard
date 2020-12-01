@@ -73,13 +73,13 @@ public class CommentController {
 	public ResponseEntity<Object> comment_list(
 			@RequestParam(value = "curPage", required = true, defaultValue = "1") Integer curPage,
 			@RequestParam(value = "b_seq", required = true) Integer b_seq) {
+		// JSON으로 데이터 만들어서 보내기 위해
 		List<JSONObject> jsonList = new ArrayList<JSONObject>();
-
+		// 페이지 정보 만들기
 		PageMaker pageMaker = new PageMaker(curPage, 5);
 		int totalPost = commentService.cntTotal(b_seq);
 		PageInfo pageInfo = pageMaker.pageSetting(totalPost);
-
-		Map<String, Object> dataMap = new HashMap<String, Object>();
+		// 댓글 리스트 뽑기
 		List<CommentVO> commentVOs = commentService.setCommentList(pageMaker, b_seq);
 
 		if(!commentVOs.isEmpty()) {
@@ -91,11 +91,12 @@ public class CommentController {
 				// 날짜 변환
 				DateTimeFormatter dateTimeFmt = DateTimeFormatter.ofPattern("yy.MM.dd hh:mm");
 				String strDate = commentVOs.get(i).getRegdate().format(dateTimeFmt);
-				//System.out.println(strDate);
 				entity.put("c_regdate", strDate);
+				// jsonList에 정보 넣기
 				jsonList.add(entity);
 			}
 		}
+		// 페이지정보 JSON으로 만들어서 넣기
 		JSONObject pageInfoJson = new JSONObject();
 		pageInfoJson.put("totalPage", pageInfo.getTotalPage());
 		pageInfoJson.put("totalPost", pageInfo.getTotalPost());

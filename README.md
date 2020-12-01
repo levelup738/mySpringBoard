@@ -27,6 +27,7 @@ spring으로 간단한 게시판을 만들어 보았습니다.
 - [초기버전 제작기간 (2020-09-07 ~ 2020-09-23)](/Diary/initsetting.md)
 - 2020-10-15 mapper의 select * 을 컬럼명을 다 명시해주는걸로 교체
 - [2020-10-28 이전글 다음글 불러오는 쿼리를 잘못짜서 수정](/Diary/fixSQLQuery.md)
+- 2020-11-30 ajax로 댓글창 구현기능 추가
 
 ## 주요 구현 기능
 
@@ -35,6 +36,7 @@ spring으로 간단한 게시판을 만들어 보았습니다.
 - [ajax로 ID중복확인](/Diary/functions/idDoubleCheck.md)
 - [동적SQL을 이용한 검색기능](/Diary/functions/dynamicSQL.md)
 - [logininterceptor기능 으로 로그인 안하고 게시글 보려고 하면 로그인 페이지로 보냄](/Diary/functions/loginInterceptor.md)
+- [ajax로 댓글창 구현](/Diary/functions/ajaxComment.md)
 
 ## DB Table
 

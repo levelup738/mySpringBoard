@@ -4,7 +4,7 @@
 
 servlet.xml에 설정
 
-![loginInterceptor2](C:\Users\freyj\Desktop\loginInterceptor2.PNG)
+![loginInterceptor2](https://user-images.githubusercontent.com/47135267/100746435-0b6b9900-3424-11eb-9d0b-6254d5a360f3.PNG)
 
 HandlerInterceptor를 상속받아서 사용
 
